@@ -35,3 +35,44 @@ public:
          return sum;    
     }
 };
+
+
+// soll 2
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+
+void helper(TreeNode *root , bool &flag , int &sum){
+     
+     if(!root) return;
+
+     if(flag && !root->left && !root->right){
+        sum+=root->val;
+     }
+
+     flag=true;
+
+     helper(root->left,flag,sum);
+     flag=false;
+     helper(root->right,flag,sum);
+
+
+}
+
+public:
+    int sumOfLeftLeaves(TreeNode* root) {
+         bool flag = false;
+         int sum=0;
+         helper(root,flag,sum);
+         return sum;    
+    }
+};
