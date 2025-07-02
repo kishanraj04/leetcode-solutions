@@ -33,3 +33,38 @@ public:
         return create(preorder,inorder,0,preorder.size()-1,0);
     }
 };
+
+
+// sol 2
+
+class Solution {
+    unordered_map<int, int> inMap; // value -> index in inorder
+    int preIdx = 0;
+
+    TreeNode* create(const vector<int>& preorder, int inStart, int inEnd) {
+        if (inStart > inEnd) return nullptr;
+
+        int rootVal = preorder[preIdx++];
+        TreeNode* root = new TreeNode(rootVal);
+
+        int inRootIdx = inMap[rootVal];
+
+        root->left = create(preorder, inStart, inRootIdx - 1);
+        root->right = create(preorder, inRootIdx + 1, inEnd);
+
+        return root;
+    }
+
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        inMap.clear();
+        preIdx = 0;
+
+        // Map all inorder values to their indices
+        for (int i = 0; i < inorder.size(); ++i) {
+            inMap[inorder[i]] = i;
+        }
+
+        return create(preorder, 0, inorder.size() - 1);
+    }
+};
