@@ -2,7 +2,7 @@ class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
         int num1 = INT_MAX;
-        int num2 = INT_MIN;
+        int num2 = INT_MAX;
         int num3 = 0;
 
         for(int v:nums){
